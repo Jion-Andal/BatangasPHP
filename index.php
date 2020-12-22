@@ -45,11 +45,11 @@
                   $pass = $_GET['password'];
 
                   if ($email == $email1 && $pass == $pass1) {
-                    header("Location: areas/index.html");
+                    header("Location: areas/index.php");
                   }
 
                   else if ($email == $email2 && $pass == $pass2) {
-                    header("Location: areas/index.html");
+                    header("Location: areas/index.php");
                   }
 
                   else {

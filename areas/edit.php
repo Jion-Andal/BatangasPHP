@@ -62,13 +62,24 @@
 
             <form class="needs-validation" novalidate action="areas/detail.php">
 
+              <div class="row">
+                  <div class="col-12 col-lg-4 mb-3">
+                      <label for="inputName">Name of Area to be edited</label>
+                      <!-- adding the class is-invalid to the input, shows the invalid feedback below -->
+                      <input type="text" class="form-control is-invalid" id="inputName" name="area_name" placeholder="" value="">
+                      <div class="invalid-feedback">
+                          Area Name is required.
+                      </div>
+                  </div>
+              </div>
+
                 <div class="row">
                     <div class="col-12 col-lg-4 mb-3">
                         <label for="inputName">Name</label>
                         <!-- adding the class is-invalid to the input, shows the invalid feedback below -->
                         <input type="text" class="form-control is-invalid" id="inputName" name="name" placeholder="" value="">
                         <div class="invalid-feedback">
-                            Area Name is required.
+                            New area Name is required.
                         </div>
                     </div>
                 </div>
@@ -91,7 +102,37 @@
                 </div>
 
                 <hr class="mb-4">
-                <button class="btn btn-primary" type="submit">Save</button>
+                <button class="btn btn-primary" type="submit" name="submit">Save</button>
+
+                <?php
+                if (isset($_GET['submit'])) {
+
+                $oldname = $_GET['area_name'];
+                $newname = $_GET['name'];
+                $contact = $_GET['contact_person'];
+                $description = $_GET['description'];
+
+                $sql = "SELECT * FROM new_area";
+                $sqladd = "INSERT INTO new_area (name, contact_person, description) VALUES ('$newname', '$contact', '$description')";
+                $sqldelete = "DELETE FROM new_area WHERE name='$oldname'";
+                $result = mysqli_query($conn, $sql);
+                $resultCheck = mysqli_num_rows($result);
+
+                if ($resultCheck > 0) {
+                  while ($row = mysqli_fetch_assoc($result)){
+                    if ($row['name'] = $oldname) {
+                      mysqli_query($conn, $sqldelete);
+                      mysqli_query($conn, $sqladd);
+
+                      header("Location: areas/index.php");
+                    }
+
+                  }
+                }
+
+                }
+                ?>
+
                 <a href="areas/detail.php" class="btn btn-link">Cancel</a>
             </form>
 

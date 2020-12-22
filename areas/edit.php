@@ -1,6 +1,7 @@
 <?php
   include_once '../dbh.php';
 ?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -60,7 +61,7 @@
                 </div>
             </div>
 
-            <form class="needs-validation" novalidate action="areas/detail.php">
+            <form class="needs-validation">
 
               <div class="row">
                   <div class="col-12 col-lg-4 mb-3">
@@ -114,20 +115,21 @@
 
                 $sql = "SELECT * FROM new_area";
                 $sqladd = "INSERT INTO new_area (name, contact_person, description) VALUES ('$newname', '$contact', '$description')";
-                $sqlupdate = "UPDATE new_area SET name=[$newname],contact_person=[$contact],description=[$description] WHERE name=[$oldname]";
+                $sqldelete = "DELETE FROM new_area WHERE name='$oldname'";
                 $result = mysqli_query($conn, $sql);
                 $resultCheck = mysqli_num_rows($result);
 
                 if ($resultCheck > 0) {
                   while ($row = mysqli_fetch_assoc($result)){
                     if ($row['name'] == $oldname) {
-                      mysqli_query($conn, $sqlupdate);
+                      mysqli_query($conn, $sqldelete);
+                      mysqli_query($conn, $sqladd);
 
-                      header("Location: areas/index.php");
+                      
                     }
-
                   }
                 }
+
 
                 }
                 ?>

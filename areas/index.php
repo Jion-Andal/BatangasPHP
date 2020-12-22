@@ -75,6 +75,31 @@
                         </a>
                     </div>
                 </div>
+
+                <?php
+                  $sql = "SELECT * FROM new_area";
+                  $result = mysqli_query($conn, $sql);
+                  $resultCheck = mysqli_num_rows($result);
+
+                  if ($resultCheck > 0) {
+                    while ($row = mysqli_fetch_assoc($result)){
+                      echo "<div class='col-md-4'>
+                          <div class='card mb-4 shadow-sm'>
+                              <a href='areas/detail.php' class='btn text-left area'>
+                                  <div class='card-body'>
+                                      <h5 class='card-title'>".$row['name'].
+                                      "</h5>
+                                      <p class='card-subtitle'>{date registered}</p>
+                                      <hr>
+                                      <p class='card-text'>No visitors yet</p>
+                                  </div>
+                              </a>
+                          </div>
+                      </div>";
+                    }
+                  }
+                ?>
+
             </div>
 
         </main>

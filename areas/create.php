@@ -1,5 +1,5 @@
 <?php
-  include_once 'dbh.php';
+  include_once '../dbh.php';
 ?>
 <!doctype html>
 <html lang="en">
@@ -20,11 +20,11 @@
 
 <body>
 <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="areas/index.html">Contact Tracing Platform</a>
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="areas/index.php">Contact Tracing Platform</a>
     <span class="navbar-organizer w-100">{insert user name}</span>
     <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-            <a class="nav-link" id="logout" href="index.html">Sign out</a>
+            <a class="nav-link" id="logout" href="index.php">Sign out</a>
         </li>
     </ul>
 </nav>
@@ -34,7 +34,7 @@
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
             <div class="sidebar-sticky">
                 <ul class="nav flex-column">
-                    <li class="nav-item"><a class="nav-link active" href="areas/index.html">Manage Contact Tracings</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="areas/index.php">Manage Contact Tracings</a></li>
                 </ul>
             </div>
         </nav>
@@ -51,7 +51,7 @@
                 </div>
             </div>
 
-            <form class="needs-validation" novalidate action="areas/detail.html">
+            <form class="needs-validation">
 
                 <div class="row">
                     <div class="col-12 col-lg-4 mb-3">
@@ -82,8 +82,22 @@
                 </div>
 
                 <hr class="mb-4">
-                <button class="btn btn-primary" type="submit">Save area</button>
-                <a href="areas/index.html" class="btn btn-link">Cancel</a>
+                <button class="btn btn-primary" type="submit" name="submit">Save area</button>
+
+                <?php
+                  if (isset($_GET['submit'])) {
+                    $name = $_GET['name'];
+                    $contact = $_GET['contact_person'];
+                    $description = $_GET['description'];
+
+                    $sql = "INSERT INTO new_area (name, contact_person, description) VALUES ('$name', '$contact', '$description')";
+                    mysqli_query($conn, $sql);
+
+                    header("Location: detail.html");
+                  }
+                ?>
+
+                <a href="areas/index.php" class="btn btn-link">Cancel</a>
             </form>
 
         </main>

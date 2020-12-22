@@ -24,7 +24,7 @@
                 <h1 class="h2">Contact Tracing Platform</h1>
             </div>
 
-            <form class="form-signin" action="areas/index.html">
+            <form class="form-signin">
                 <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
 
                 <label for="inputEmail" class="sr-only">Email</label>
@@ -32,7 +32,32 @@
 
                 <label for="inputPassword" class="sr-only">Password</label>
                 <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password">
-                <button class="btn btn-lg btn-primary btn-block" id="login" type="submit">Sign in</button>
+                <button class="btn btn-lg btn-primary btn-block" id="login" type="submit" name="submit">Sign in</button>
+
+                <?php
+                $email1 = "demo1@worldskills.ph";
+                $email2 = "demo2@worldskills.ph";
+                $pass1 = "demopass1";
+                $pass2 = "demopass2";
+
+                if (isset($_GET['submit'])) {
+                  $email = $_GET['email'];
+                  $pass = $_GET['password'];
+
+                  if ($email == $email1 && $pass == $pass1) {
+                    header("Location: areas/index.html");
+                  }
+
+                  else if ($email == $email2 && $pass == $pass2) {
+                    header("Location: areas/index.html");
+                  }
+
+                  else {
+                    header("Location: index.php");
+                  }
+                }
+
+                ?>
             </form>
 
         </main>

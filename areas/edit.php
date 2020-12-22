@@ -114,15 +114,14 @@
 
                 $sql = "SELECT * FROM new_area";
                 $sqladd = "INSERT INTO new_area (name, contact_person, description) VALUES ('$newname', '$contact', '$description')";
-                $sqldelete = "DELETE FROM new_area WHERE name='$oldname'";
+                $sqlupdate = "UPDATE new_area SET name=[$newname],contact_person=[$contact],description=[$description] WHERE name=[$oldname]";
                 $result = mysqli_query($conn, $sql);
                 $resultCheck = mysqli_num_rows($result);
 
                 if ($resultCheck > 0) {
                   while ($row = mysqli_fetch_assoc($result)){
-                    if ($row['name'] = $oldname) {
-                      mysqli_query($conn, $sqldelete);
-                      mysqli_query($conn, $sqladd);
+                    if ($row['name'] == $oldname) {
+                      mysqli_query($conn, $sqlupdate);
 
                       header("Location: areas/index.php");
                     }

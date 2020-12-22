@@ -93,7 +93,7 @@
                     $sql = "INSERT INTO new_area (name, contact_person, description) VALUES ('$name', '$contact', '$description')";
                     mysqli_query($conn, $sql);
 
-                    header("Location: detail.html");
+                    header("Location: detail.php");
                   }
                 ?>
 
